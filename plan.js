@@ -59,12 +59,11 @@ class Planning {
         curr.setHours(12);
         const first = (curr.getDate() - curr.getDay()) + 2; // 0 is sunday, 2 is tuesday, the one we want
         curr.setDate(first);
-        curr.setMonth(first);
         const firstdate = new Date(curr);
 
         this.activities = [];
         for(let i = 0; i < 7; i++) {
-            const d = new Date();
+            const d = new Date(firstdate);
             d.setDate(firstdate.getDate() + i);
             this.activities.push(
                 new TimeSlot(
