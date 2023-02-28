@@ -57,7 +57,7 @@ class Planning {
         // get the current week's tuesday
         const curr = new Date();
         curr.setHours(12);
-        const first = (curr.getDate() - curr.getDay()) + 2; // 0 is sunday, 2 is tuesday, the one we want
+        const first = (curr.getDate() - curr.getDay()) - 5; // 0 is sunday, 2 is tuesday, the one we want
         const firstdate = new Date(curr.setDate(first));
 
         this.activities = [];
