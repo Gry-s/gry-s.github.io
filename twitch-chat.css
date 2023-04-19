@@ -12,4 +12,4 @@ span[data-test-selector="chat-message-separator"] { display: none !important; }
 .chat-line__message { font-size: 26px !important; color: rgb(255, 255, 255) !important; }
 figure.tw-svg { display: none !important; }
 button { display: none !important; }
-.chat-line__username-container { font-size: smaller !important; opacity: 0.7 !important; }
+.chat-line__username-container { font-size: smaller !important; opacity: 0.8 !important; }
