@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>test</title>
+        <style type="text/css">
+            html,
+            body {
+                background-color: #202020;
+                color: #f8f8f8;
+                text-shadow: 0px 0px 2px rgba(50, 50, 50, 0.8);
+                font-family: Verdana, serif;
+                margin: 0px;
+                padding: 0px;
+            }
+
+            html {
+                height: 100%;
+            }
+
+            body {
+                min-height: 100%;
+            }
+
+            div {
+                box-sizing: border-box;
+            }
+
+            #spoiljauge {
+                height: 100vh;
+                display: grid;
+                align-items: stretch;
+            }
+
+            #spoiljauge > div {
+                border: 1px solid #f8f8f8;
+                background-position: center;
+                background-size: 400px;
+                text-align: center;
+                padding: 1em;
+                font-weight: bold;
+                text-shadow: #ffcc00 1px 0px 10px;
+                opacity: 0.1;
+            }
+
+            #spoiljauge > .meter {
+                font-weight: lighter;
+                font-style: italic;
+                text-shadow: #f8f8f8 1px 0px 10px;
+                opacity: 1;
+            }
+
+            #spoiljauge > .safe {
+                background-color: #104010;
+                color: #20a020;
+                text-shadow: #30c030 1px 0px 10px;
+            }
+
+            .arr {
+                background-image: url('media/images/xiv_arr_logo.png');
+            }
+
+            .hw {
+                background-image: url('media/images/xiv_hw_logo.png');
+            }
+
+            .sb {
+                background-image: url('media/images/xiv_sb_logo.png');
+            }
+
+            .shb {
+                background-image: url('media/images/xiv_shb_logo.png');
+            }
+
+            .ew {
+                background-image: url('media/images/xiv_ew_logo.png');
+            }
+
+            .expack {
+                filter: saturate(120%);
+            }
+
+            .patch {
+                filter: grayscale(90%);
+            }
+
+            /*
+             * How to use : 
+             * - add the HTML widget
+             * - add a group with the widget in it
+             * - duplicate the scene, but use a different CSS
+             * - CSS below defines what is spoiled !
+             */
+            /*#spoiljauge > div:where(.arr, .hw) {
+                opacity: 1;
+            }*/
+        </style>
+    </head>
+
+    <body>
+        <div id="spoiljauge">
+            <div class="meter">Spoil-o-meter</div>
+            <div class="safe">SAFE !</div>
+            <div class="arr expack">ARR</div>
+            <div class="arr patch">Post-ARR</div>
+            <div class="hw expack">HW</div>
+            <div class="hw patch">Post-HW</div>
+            <div class="sb expack">SB</div>
+            <div class="sb patch">Post-SB</div>
+            <div class="shb expack">ShB</div>
+            <div class="shb patch">Post-ShB</div>
+            <div class="ew expack">EW</div>
+            <div class="ew patch">Post-EW</div>
+        </div>
+    </body>
+
+</html>
