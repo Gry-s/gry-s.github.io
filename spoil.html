@@ -96,6 +96,37 @@
                 opacity: 1;
             }*/
         </style>
+        <script type="text/javascript">
+            const SPOILCONFIGS = {
+                'arr': '.arr.expack',
+                'arrp': '.arr',
+                'hw': '.arr, .hw.expack',
+                'hwp': '.arr, .hw',
+                'sb': '.arr, .hw, .sb.expack',
+                'sbp': '.arr, .hw, .sb',
+                'shb': '.arr, .hw, .sb, .shb.expack',
+                'shbp': '.arr, .hw, .sb, .shb',
+                'ew': '.arr, .hw, .sb, .shb, .ew.expack',
+                'ewp': '.arr, .hw, .sb, .shb, .ew',
+            };
+
+            function spoilometer(loc) {
+                let params = new URL(document.location).searchParams;
+                if(params.has('s')
+                    && SPOILCONFIGS[params.get('s')]) {
+                    let x = document.querySelectorAll('#spoiljauge > div:where('+SPOILCONFIGS[params.get('s')]+')');
+                    x.forEach((e) => {
+                        e.style.opacity = '1';
+                    });
+                } else {
+                    document.querySelector('#spoiljauge > div:where(.safe)').style.opacity = '1';
+                }
+            }
+
+            window.addEventListener('load', () => {
+                spoilometer(document.location);
+            });
+        </script>
     </head>
 
     <body>
