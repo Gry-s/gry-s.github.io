@@ -84,19 +84,16 @@
             .patch {
                 filter: grayscale(90%);
             }
-
+        </style>
+        <script type="text/javascript">
             /*
              * How to use : 
              * - add the HTML widget
-             * - add a group with the widget in it
-             * - duplicate the scene, but use a different CSS
-             * - CSS below defines what is spoiled !
+             * - use the proper URI
+             * - append a "s" parameter with a value from SPOILCONFIGS
+             * - for example, "hw" shows ARR, Post-ARR and HW as spoiled !
              */
-            /*#spoiljauge > div:where(.arr, .hw) {
-                opacity: 1;
-            }*/
-        </style>
-        <script type="text/javascript">
+
             const SPOILCONFIGS = {
                 'arr': '.arr.expack',
                 'arrp': '.arr',
