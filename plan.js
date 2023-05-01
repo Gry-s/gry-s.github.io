@@ -5,6 +5,28 @@ const ActivityType = {
     'OTHER': 'other'
 };
 
+const ENDAYS = [
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun',
+    'Mon',
+];
+
+function strpad(str, nb, c = '0', reverse = false) {
+    let r = ''+str;
+    if(c.length > 0) {
+        c = ''+c;
+        while(r.length < nb) {
+            if(reverse) { r = c + r; }
+            else { r = r + c; }
+        }
+    }
+    return r;
+}
+
 class Activity {
     constructor(type, name, image) {
         this.type = type;
@@ -26,13 +48,23 @@ class Activity {
 }
 
 class TimeSlot {
-    constructor(when, activity) {
-        this.when = when;
+    constructor(day, hour, activity) {
+        this.day = day;
+        this.hour = hour;
         this.activity = activity;
     }
 
-    getWhen() {
-        return this.when;
+    getDay() {
+        return this.day;
+    }
+
+    getHour() {
+        return this.hour;
+    }
+
+    setHour(hour) {
+        this.hour = hour;
+        return this;
     }
 
     getActivity() {
@@ -44,30 +76,31 @@ class TimeSlot {
     }
 
     getFormattedWhen(withHours = false) {
+        let n = 0;
+        let r = 0;
+        if(withHours) {
+            n = parseInt(this.hour);
+            r = (60 * (this.hour - n));
+        }
+        
         return ''
-            +(new Intl.DateTimeFormat('default', {weekday: 'short', day: 'numeric'}).format(this.when))
+            +ENDAYS[this.day]
             +(withHours? (' @ '
-            +(new Intl.DateTimeFormat('default', {hour: '2-digit'}).format(this.when))
+            +(strpad(n, 2, '0', true))
+            +'h'
+            +((r > 0)? strpad(r, 2, '0', true):'')
             +' ST'):'');
     }
 }
 
 class Planning {
     constructor() {
-        // get the current week's tuesday
-        const curr = new Date();
-        curr.setHours(12);
-        const first = (curr.getDate() - curr.getDay()) + 2; // 0 is sunday, 2 is tuesday, the one we want
-        curr.setDate(first);
-        const firstdate = new Date(curr);
-
         this.activities = [];
         for(let i = 0; i < 7; i++) {
-            const d = new Date(firstdate);
-            d.setDate(firstdate.getDate() + i);
             this.activities.push(
                 new TimeSlot(
-                    d,
+                    i,
+                    0,
                     new Activity(
                         ActivityType.EMPTY,
                         '',
@@ -79,7 +112,7 @@ class Planning {
     }
 
     setActivity(dayslot, hour, activity) {
-        this.activities[dayslot].getWhen().setHours(hour);
+        this.activities[dayslot].setHour(hour);
         this.activities[dayslot].setActivity(activity);
     }
 
