@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>test</title>
+        <style type="text/css">
+            html,
+            body {
+                background-color: #202020;
+                color: #f8f8f8;
+                text-shadow: 0px 0px 2px rgba(50, 50, 50, 0.8);
+                font-family: Verdana, serif;
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+        <script type="text/javascript">
+            class Converter {
+                constructor() {
+                    this.tzs = Intl.supportedValuesOf('timeZone');
+                    this.tzo = {}; // timezone offsets to LOCAL (because JS cannot init a date on UTC if that's parsed from EN strings...)
+                }
+
+                baseDate() {
+                    return '2023-05-19T13:00:00'; // use that arbitrary date to have a static anchor
+                }
+
+                defaultSrcTz() {
+                    return 'UTC';
+                }
+
+                defaultTrgTz() {
+                    return 'UTC';
+                }
+
+                getTzFrom() {
+                    return document.querySelector('#tzFrom').value;
+                }
+
+                getTzTo() {
+                    return document.querySelector('#tzTo').value;
+                }
+
+                getSourceDate() {
+                    return document.querySelector('#source').value;
+                }
+
+                fillTzs() {
+                    const selects = document.querySelectorAll('#tzFrom, #tzTo');
+                    const defaults = {'tzFrom': this.defaultSrcTz(), 'tzTo': this.defaultTrgTz()};
+                    for(const tz of this.tzs) {
+                        const o = document.createElement('option');
+                        o.value = tz;
+                        o.text = tz;
+                        for(const s of selects) {
+                            const co = o.cloneNode(true);
+                            if(defaults[s.id] == o.value) { co.selected = "selected"; }
+                            s.options.add(co);
+                        }
+                    }
+                }
+
+                bind() {
+                    const checks = document.querySelectorAll('#tzFrom, #tzTo, #source');
+                    for(const e of checks) {
+                        e.addEventListener('change', () => {
+                            const r = this.compute();
+                            if(r) {
+                                document.querySelector('#dest').value = r.toLocaleString();
+                                document.querySelector('#discord').value = '<t:'+(r.getTime() / 1000)+':@>';
+                            }
+                        });
+                    }
+                }
+
+                computeTzOffset(tz) {
+                    if(!this.tzo.hasOwnProperty(tz)) {
+                        const d = new Date(this.baseDate()); // init on UTC won't work...
+                        const r = d.toLocaleString('en', { timeZone: tz });
+                        const e = new Date(r); // that'll be on local time, of course JS
+                        this.tzo[tz] = (e.getTime() - d.getTime());
+                    }
+                    return this.tzo[tz];
+                }
+
+                compute() {
+                    const srcDate = new Date(this.getSourceDate());
+                    if(srcDate && srcDate.getTime) {
+                        const srcTz = this.getTzFrom();
+                        const trgTz = this.getTzTo();
+                        srcDate.setTime(
+                            (srcDate.getTime() - this.computeTzOffset(srcTz)) + this.computeTzOffset(trgTz)
+                        );
+                    } else { return null; }
+                    return srcDate;
+                }
+            }
+
+            let _c;
+            window.addEventListener('load', () => {
+                _c =new Converter();
+                _c.fillTzs();
+                _c.bind();
+                const r = (new Date()).toISOString().substring(0, 'YYYY-MM-DDTHH:II'.length);
+                document.querySelector('#source').value = r;
+                document.querySelector('#source').dispatchEvent(new Event('change'));
+            });
+        </script>
+    </head>
+    <body>
+        <header>
+            <form id="converter">
+                <p>
+                    <select id="tzFrom"></select>
+                    <input type="datetime-local" id="source" />
+                    <select id="tzTo"></select>
+                    <output for="tzFrom source tzTo" id="dest"></output>
+                    <output for="tzFrom source tzTo" id="discord"></output>
+                </p>
+            </form>
+        </header>
+        <main>
+            
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+</html>
