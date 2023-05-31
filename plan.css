@@ -59,3 +59,16 @@ body { min-height: 100%; }
     background: repeating-linear-gradient(-45deg, rgba(20, 20, 20, 0.3), rgba(20, 20, 20, 0.3) 10px, rgba(50, 50, 50, 0.3) 20px, rgba(50, 50, 50, 0.3) 20px);
     animation: 5s linear 0s infinite alternate opacity-change;
 }
+
+#plan_content article del {
+    font-size: smaller;
+}
+
+#plan_content article[class^="changed-"] {
+    filter: sepia(0.5);
+}
+
+#plan_content article.changed-cancel {
+    filter: sepia(0.8);
+    text-decoration: line-through;
+}
