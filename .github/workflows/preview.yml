@@ -6,7 +6,8 @@ on:
       - main
     paths-ignore:
       - 'media/images/latest.png'
-
+permissions:
+  contents: write
 jobs:
   preview:
     runs-on: ubuntu-latest
