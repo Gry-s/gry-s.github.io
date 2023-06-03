@@ -13,7 +13,10 @@ jobs:
     steps:
     - uses: browser-actions/setup-chrome@v1
     - name: Start a preview generation
-      run: chrome --headless=new --screenshot --window-size=360,760 planning.html
+      run: |
+        chrome --headless=new --screenshot --window-size=360,760 planning.html
+        ls -larth
+        pwd
     - name: Updates the screenshot.png
       run: mv screenshot.png media/images/latest.png
     - uses: actions/checkout@v3
