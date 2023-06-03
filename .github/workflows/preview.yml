@@ -18,7 +18,10 @@ jobs:
         ls -larth
         pwd
     - name: Updates the screenshot.png
-      run: mv screenshot.png media/images/latest.png
+      run: |
+        pwd
+        ls -larth
+        mv screenshot.png media/images/latest.png
     - uses: actions/checkout@v3
     - name: Commit report
       run: |
