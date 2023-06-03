@@ -11,6 +11,7 @@ jobs:
   preview:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
     - uses: browser-actions/setup-chrome@v1
     - name: Start a preview generation
       run: |
