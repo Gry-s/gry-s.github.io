@@ -16,16 +16,7 @@ jobs:
     - name: Start a preview generation
       run: |
         chrome --headless=new --screenshot --window-size=360,760 planning.html
-        ls -larth
-        pwd
-    - name: Updates the screenshot.png
-      run: |
-        pwd
-        ls -larth
         mv screenshot.png media/images/latest.png
-    - uses: actions/checkout@v3
-    - name: Commit report
-      run: |
         git config --global user.name 'Lpu8er'
         git config --global user.email 'lpu8er@users.noreply.github.com'
         git add media/images/latest.png
