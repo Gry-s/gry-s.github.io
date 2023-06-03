@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: browser-actions/setup-chrome@v1
     - name: Start a preview generation
-      run: chrome --headless=new --screenshot --window-size=360,760 https://gry-s.github.io/planning.html
+      run: chrome --headless=new --screenshot --window-size=360,760 planning.html
     - name: Updates the screenshot.png
       run: mv screenshot.png media/images/latest.png
     - uses: actions/checkout@v3
