@@ -60,6 +60,10 @@ body { min-height: 100%; }
     animation: 5s linear 0s infinite alternate opacity-change;
 }
 
+#plan_content article:not(.activitytype-empty) {
+    background-position: left 10%;
+}
+
 #plan_content article del {
     font-size: smaller;
 }
