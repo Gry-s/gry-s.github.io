@@ -16,7 +16,7 @@ jobs:
     - uses: browser-actions/setup-chrome@v1
     - name: Start a preview generation
       run: |
-        chrome --headless=new --allow-external-pages --screenshot --window-size=360,760 planning.html
+        chrome --headless=new --allow-external-pages --screenshot --force-device-scale-factor=0.75 --window-size=360,760 planning.html
         mv screenshot.png media/images/latest.png
         git config --global user.name 'Lpu8er'
         git config --global user.email 'lpu8er@users.noreply.github.com'
